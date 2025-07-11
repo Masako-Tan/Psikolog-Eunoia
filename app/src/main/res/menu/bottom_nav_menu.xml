@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_beranda"
+        android:icon="@drawable/ic_house"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/navigation_rekap"
+        android:icon="@drawable/ic_rekap"
+        android:title="Rekap" />
+
+    <item
+        android:id="@+id/navigation_konsultasi"
+        android:icon="@drawable/ic_message"
+        android:title="Konsultasi" />
+
+    <item
+        android:id="@+id/navigation_catatan"
+        android:icon="@drawable/ic_sticky"
+        android:title="Catatan" />
+
+
+</menu>

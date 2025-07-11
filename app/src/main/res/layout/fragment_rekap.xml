@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.rekap.RekapFragment">
+
+    <LinearLayout
+        android:id="@+id/headerRekap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#E4F0FF"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/eunoia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/txvRekap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekap"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="23dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+                app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollableContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerRekap">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#95B6FBFF"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgIcha"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/icha" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvIcha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Icha Septina"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmuricha"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="19 Tahun"
+                                android:textSize="14.5dp"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/txvHubung"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textSize="14.5dp"
+                                android:textColor="@color/black"/>
+
+                            <TextView
+                                android:id="@+id/txvPerempuan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Perempuan"
+                                android:textSize="14.5dp"
+                                android:textColor="@color/black"/>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanicha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Informatika"
+                            android:textSize="14.5dp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:id="@+id/txvEmailicha"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="icha.septina@gmail.com"
+                            android:textSize="14.5dp"
+                            android:textColor="@color/black"/>
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:textColor="@color/white"
+                            android:text="Selengkapnya"
+                            android:textSize="8dp"
+                            android:layout_marginStart="120dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgAsep"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/asep" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvAsep"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Asep Yovara"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmurasep"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="20 Tahun"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvHubung1"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvLaki"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Laki-laki"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanasep"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Hukum"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <TextView
+                            android:id="@+id/txvEmailasep"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="yovaraasepp@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya1"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:layout_marginStart="120dp"
+                            android:text="Selengkapnya"
+                            android:textColor="@color/white"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgSeny"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/senyy" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvSeny"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Seny Caroline"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmurseny"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="22 Tahun"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvHubung2"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvPerempuan1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Perempuan"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanseny"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Teknik Kimia"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <TextView
+                            android:id="@+id/txvEmailseny"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="sen@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya2"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:layout_marginStart="120dp"
+                            android:text="Selengkapnya"
+                            android:textColor="@color/white"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgRea"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/rea" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvRea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rea Parulian"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmurrea"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="21 Tahun"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvHubung3"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvPerempuan2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Perempuan"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanrea"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Sistem Informasi"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <TextView
+                            android:id="@+id/txvEmailrea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="parulian@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya3"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:layout_marginStart="120dp"
+                            android:text="Selengkapnya"
+                            android:textColor="@color/white"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgRhoma"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/rhoma" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvRhoma"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rhoma"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmurrhoma"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="20 Tahun"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvHubung4"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvLaki1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Laki-laki"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanrhoma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Teknik Industri"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <TextView
+                            android:id="@+id/txvEmailrhoma"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="rhomaa@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya4"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:layout_marginStart="120dp"
+                            android:text="Selengkapnya"
+                            android:textColor="@color/white"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="374dp"
+                android:layout_height="175dp"
+                android:layout_marginStart="19.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="374dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/imgIrama"
+                        android:layout_width="235dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/irama" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txvIrama"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Irama"
+                            android:textColor="@color/black"
+                            android:textSize="21dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txvUmurirama"
+                                android:layout_width="145dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="22 Tahun"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvHubung5"
+                                android:layout_width="90dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="|"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+
+                            <TextView
+                                android:id="@+id/txvLaki2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Laki-laki"
+                                android:textColor="@color/black"
+                                android:textSize="14.5dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txvJurusanirama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Seni Musik"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <TextView
+                            android:id="@+id/txvEmailirama"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="irama@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="14.5dp" />
+
+                        <Button
+                            android:id="@+id/btnSelengkapnya5"
+                            android:layout_width="100dp"
+                            android:layout_height="29dp"
+                            android:layout_marginStart="120dp"
+                            android:text="Selengkapnya"
+                            android:textColor="@color/white"
+                            android:textSize="8dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

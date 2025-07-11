@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/llyIcha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/layout_rounded"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/imgIcha"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icha"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:background="@drawable/layout_circle" />
+
+        <TextView
+            android:id="@+id/txvIcha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:text="Icha Septina"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/imgPanah"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/panah" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
