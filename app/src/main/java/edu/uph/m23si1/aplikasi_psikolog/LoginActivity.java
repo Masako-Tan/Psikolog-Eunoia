@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import edu.uph.m23si1.aplikasi_psikolog.ui.beranda.BerandaFragment;
+
 public class LoginActivity extends AppCompatActivity {
     EditText edtUsername, edtEmail, edtPassword;
     Button btnLogin;
@@ -62,9 +64,10 @@ public class LoginActivity extends AppCompatActivity {
             String password = edtPassword.getText().toString();
             String email = edtEmail.getText().toString();
             if(username.toLowerCase().equals("masako") && email.equals("03081230053@student.uph.edu") && password.toLowerCase().equals("03081230053")){
-                Intent intent = new Intent(this, BerandaActivity.class);
+                Intent intent = new Intent(this, MainActivity1.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
+                finish();
             } else{
                 Toast toast = Toast.makeText(getApplication(), "Akun Tidak terdaftar", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.BOTTOM | Gravity.RIGHT, 0, 0);
