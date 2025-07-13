@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -19,18 +20,28 @@ public class MainActivity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMain1Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_beranda, R.id.navigation_rekap, R.id.navigation_konsultasi, R.id.navigation_catatan)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main1);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-    }
+        BottomNavigationView navView = binding.navView;
 
+        // ✅ GUNAKAN NavHostFragment LANGSUNG — BUKAN findNavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_activity_main1);
+
+        if (navHostFragment == null) {
+            throw new IllegalStateException("NavHostFragment not found. Cek ID-nya!");
+        }
+
+        NavController navController = navHostFragment.getNavController();
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_beranda,
+                R.id.navigation_rekap,
+                R.id.navigation_konsultasi,
+                R.id.navigation_catatan
+        ).build();
+
+        NavigationUI.setupWithNavController(navView, navController);
+    }
 }
