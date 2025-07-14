@@ -1,6 +1,8 @@
 package edu.uph.m23si1.aplikasi_psikolog.ui.beranda;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,10 +39,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import edu.uph.m23si1.aplikasi_psikolog.R;
 import edu.uph.m23si1.aplikasi_psikolog.adapter.PasienAdapter;
 import edu.uph.m23si1.aplikasi_psikolog.model.Pasien;
+import edu.uph.m23si1.aplikasi_psikolog.model.Reminder;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
 
 public class BerandaFragment extends Fragment {
     private View rootView;
@@ -54,8 +63,8 @@ public class BerandaFragment extends Fragment {
 
     PasienAdapter pasienAdapter;
     List<Pasien> pasienList;
-
-    private final Map<String, List<String>> reminderMap = new HashMap<>();
+    Button btnTambahReminder;
+    String selectedDate = ""; // Global date
 
     private final SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
 
@@ -109,6 +118,43 @@ public class BerandaFragment extends Fragment {
         llyReminder = rootView.findViewById(R.id.llyReminder);
         recyclerViewPasien = rootView.findViewById(R.id.recyclerViewPasien);
 
+        // Reminder
+        Realm.init(requireContext());
+        RealmConfiguration config = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
+        Realm.setDefaultConfiguration(config);
+
+        btnTambahReminder = rootView.findViewById(R.id.btnTambahReminder);
+
+        btnTambahReminder.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Tambah Reminder");
+
+            final EditText input = new EditText(requireContext());
+            input.setHint("Isi kegiatan...");
+            builder.setView(input);
+
+            builder.setPositiveButton("Simpan", (dialog, which) -> {
+                String task = input.getText().toString().trim();
+                if (!task.isEmpty() && !selectedDate.isEmpty()) {
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.executeTransaction(r -> {
+                        Reminder reminder = r.createObject(Reminder.class, UUID.randomUUID().toString());
+                        reminder.setDate(selectedDate);
+                        reminder.setTask(task);
+                        reminder.setDone(false);
+                    });
+                    tampilkanReminder(selectedDate);
+                }
+            });
+
+            builder.setNegativeButton("Batal", (dialog, which) -> dialog.cancel());
+            builder.show();
+        });
+
+
+
+
+        // Search
         recyclerViewPasien.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -143,7 +189,6 @@ public class BerandaFragment extends Fragment {
 
 
         keteranganWarna();
-        setupReminderData();
         setupCalendarListener();
         String today = dateFormat.format(new java.util.Date());
         tampilkanReminder(today);
@@ -186,51 +231,113 @@ public class BerandaFragment extends Fragment {
         });
     }
 
-    private void setupReminderData() {
-        reminderMap.put("16-07-2025", List.of("Konsultasi online Asep", "Cek perkembangan seny", "Konsultasi offline Rea (10.00 WIB)"));
-        reminderMap.put("17-07-2025", List.of("Konsultasi harian Icha", "Update catatan Irama", "Meeting dengan ortu Rhoma (11.00 WIB)"));
-    }
-
     private void setupCalendarListener(){
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String selectedDate = String.format(Locale.getDefault(), "%02d-%02d-%d", dayOfMonth, month + 1, year);
             tampilkanReminder(selectedDate);
         });
+
+        // Inisialisasi awal
+        selectedDate = dateFormat.format(new java.util.Date());
+        tampilkanReminder(selectedDate);
     }
 
     private void tampilkanReminder(String dateKey) {
         llyReminder.removeAllViews();
 
-        List<String> reminders = reminderMap.get(dateKey);
-        if (reminders != null && !reminders.isEmpty()) {
-            LinearLayout container = new LinearLayout(getContext());
-            container.setOrientation(LinearLayout.VERTICAL);
-            container.setPadding(12,12,12,12);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("app.realm")
+                .deleteRealmIfMigrationNeeded()
+                .allowWritesOnUiThread(true)
+                .build();
+        Realm realm = Realm.getInstance(config);
 
-            TextView title = new TextView(getContext());
-            title.setText(dateKey);
-            title.setTextSize(18);
-            title.setTextColor(Color.BLACK);
-            title.setGravity(Gravity.CENTER);
-            container.addView(title);
+        RealmResults<Reminder> reminders = realm.where(Reminder.class)
+                .equalTo("date", dateKey)
+                .findAll();
 
-            for (String task : reminders) {
-                CheckBox checkBox = new CheckBox(getContext());
-                checkBox.setText(task);
-                checkBox.setTextSize(14);
-                container.addView(checkBox);
-            }
-
-            llyReminder.addView(container);
-        } else {
+        if (reminders.isEmpty()) {
             TextView kosong = new TextView(getContext());
             kosong.setText("Tidak ada reminder untuk tanggal ini.");
             kosong.setTextSize(14);
             kosong.setTextColor(Color.DKGRAY);
             kosong.setPadding(20,10,20,10);
             llyReminder.addView(kosong);
+        } else {
+            for (Reminder r : reminders) {
+                CheckBox checkBox = new CheckBox(getContext());
+                checkBox.setText(r.getTask());
+                checkBox.setTextSize(14);
+                checkBox.setChecked(r.isDone());
+                if (r.isDone()) {
+                    checkBox.setPaintFlags(checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+
+                // Simpan
+                checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    realm.executeTransaction(bgRealm -> {
+                        Reminder update = bgRealm.where(Reminder.class).equalTo("id", r.getId()).findFirst();
+                        if (update != null) {
+                            update.setDone(isChecked);
+                        }
+                    });
+
+                    //Coret
+                    if (isChecked) {
+                        checkBox.setPaintFlags(checkBox.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    } else {
+                        checkBox.setPaintFlags(checkBox.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+                });
+
+                // Klik = Edit Reminder
+                checkBox.setOnClickListener(v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                    builder.setTitle("Edit Reminder");
+
+                    final EditText input = new EditText(requireContext());
+                    input.setText(r.getTask());
+                    builder.setView(input);
+
+                    builder.setPositiveButton("Simpan", (dialog, which) -> {
+                        String newTask = input.getText().toString().trim();
+                        if (!newTask.isEmpty()) {
+                            realm.executeTransaction(bgRealm -> {
+                                Reminder update = bgRealm.where(Reminder.class).equalTo("id", r.getId()).findFirst();
+                                if (update != null) {
+                                    update.setTask(newTask);
+                                }
+                            });
+                            tampilkanReminder(dateKey);
+                        }
+                    });
+
+                    builder.setNegativeButton("Batal", (dialog, which) -> dialog.cancel());
+                    builder.show();
+                });
+
+                // Long Press = Hapus Reminder
+                checkBox.setOnLongClickListener(v -> {
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Hapus Reminder")
+                            .setMessage("Yakin ingin menghapus reminder ini?")
+                            .setPositiveButton("Hapus", (dialog, which) -> {
+                                realm.executeTransaction(bgRealm -> {
+                                    Reminder delete = bgRealm.where(Reminder.class).equalTo("id", r.getId()).findFirst();
+                                    if (delete != null) delete.deleteFromRealm();
+                                });
+                                tampilkanReminder(dateKey);
+                            })
+                            .setNegativeButton("Batal", null)
+                            .show();
+                    return true;
+                });
+
+                llyReminder.addView(checkBox);
+            }
         }
     }
+
 
     private void setupGrafikStresPasien(){
         //Data pasien dan tingkat stress (0-10)

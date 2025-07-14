@@ -63,10 +63,21 @@ public class PasienAdapter extends RecyclerView.Adapter<PasienAdapter.ViewHolder
         Pasien model = pasienList.get(position);
         holder.txvNama.setText(model.getNama());
         holder.imgFoto.setImageResource(model.getFotoResId());
-        holder.imgPanah.setOnClickListener(v -> {
-            NavHostFragment.findNavController(fragment)
-                    .navigate(R.id.action_navigation_beranda_to_detailRekapFragment);
-        });
+
+        // ini nnti membuat semua yg diklik bakal ke detail rekap
+//        holder.imgPanah.setOnClickListener(v -> {
+//            NavHostFragment.findNavController(fragment)
+//                    .navigate(R.id.action_navigation_beranda_to_detailRekapFragment);
+//        });
+
+        if (model.getNama().equalsIgnoreCase("Icha Septina")) {
+            holder.imgPanah.setOnClickListener(v -> {
+                NavHostFragment.findNavController(fragment)
+                        .navigate(R.id.action_navigation_beranda_to_detailRekapFragment);
+            });
+        } else {
+            holder.imgPanah.setOnClickListener(null); // Tidak melakukan apa-apa untuk pasien lain
+        }
     }
 
     @Override

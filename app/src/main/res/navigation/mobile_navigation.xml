@@ -39,15 +39,6 @@
         tools:layout="@layout/fragment_catatan" />
 
     <fragment
-        android:id="@+id/rekapFragment"
-        android:name="edu.uph.m23si1.aplikasi_psikolog.ui.rekap.RekapFragment"
-        android:label="Rekap">
-        <action
-            android:id="@+id/action_rekapFragment_to_detailRekapFragment"
-            app:destination="@id/detailRekapFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/detailRekapFragment"
         android:name="edu.uph.m23si1.aplikasi_psikolog.DetailRekapFragment"
         android:label="Detail Rekap"
