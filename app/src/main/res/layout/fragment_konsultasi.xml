@@ -4,19 +4,394 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    tools:context=".ui.konsultasi.KonsultasiFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <LinearLayout
+        android:id="@+id/headerRekap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        android:background="#E4F0FF"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/eunoia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/txvRekap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekap"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="23dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+                app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <!-- SCROLLABLE CONTENT -->
+    <ScrollView
+        android:id="@+id/scrollChatList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/headerRekap"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/white">
+
+            <!-- CHAT TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp" />
+
+            <!-- SEARCH BAR -->
+            <EditText
+                android:id="@+id/searchChat"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Search"
+                android:drawableStart="@drawable/searchh"
+                android:background="@drawable/chat_border"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black" />
+
+<!--            wrapper abu-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:backgroundTint="#CDCDCD"
+                android:background="@drawable/konsul_border">
+
+                <!--            list pasien-->
+
+                <LinearLayout
+                    android:id="@+id/Icha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/icha"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Icha Septina"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <!-- Tambah item lainnya -->
+
+                <LinearLayout
+                    android:id="@+id/Supra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/rhoma"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Supra Ngengg"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Herman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/irama"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Herman Binggoeng"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Budiman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/asep"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Budiman Tok"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Kolang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/rea"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kolang Kaling"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Teti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/irama"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teti Suprato"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Susan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/icha"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Susan Min"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Mass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/senyy"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mass Teh"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Tono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/konsul_border"
+                    android:gravity="center_vertical"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/asep"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="12dp"
+                        android:clipToOutline="true"
+                        android:background="@drawable/layout_circle"
+                        android:contentDescription="Profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tono Denial"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
