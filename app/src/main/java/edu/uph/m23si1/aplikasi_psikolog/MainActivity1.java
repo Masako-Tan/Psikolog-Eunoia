@@ -25,7 +25,7 @@ public class MainActivity1 extends AppCompatActivity {
 
         BottomNavigationView navView = binding.navView;
 
-        // ✅ GUNAKAN NavHostFragment LANGSUNG — BUKAN findNavController
+
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment_activity_main1);
 
