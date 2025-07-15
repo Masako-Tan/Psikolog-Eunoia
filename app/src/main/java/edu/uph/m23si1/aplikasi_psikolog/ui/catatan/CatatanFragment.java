@@ -58,6 +58,8 @@ public class CatatanFragment extends Fragment implements CatatanAdapter.OnCatata
         // Initialize Realm
         Realm.init(requireContext());
         RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("app.realm")
+                .deleteRealmIfMigrationNeeded()
                 .allowWritesOnUiThread(true)
                 .build();
         realm = Realm.getInstance(config);

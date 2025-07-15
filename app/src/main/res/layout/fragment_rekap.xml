@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.rekap.RekapFragment">
@@ -56,7 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#95B6FBFF"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="374dp"
@@ -692,4 +695,14 @@
         </LinearLayout>
     </ScrollView>
 
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="?android:attr/windowBackground"-->
+<!--        app:menu="@menu/menu_nav"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:labelVisibilityMode="labeled"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

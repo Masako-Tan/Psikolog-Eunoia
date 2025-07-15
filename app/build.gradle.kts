@@ -56,7 +56,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("io.realm:realm-android-library:10.15.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.9.1")
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.1")
     testImplementation(libs.junit)
