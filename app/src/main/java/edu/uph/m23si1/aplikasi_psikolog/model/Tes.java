@@ -6,8 +6,6 @@ import io.realm.annotations.PrimaryKey;
 public class Tes extends RealmObject {
     @PrimaryKey
     private int id;
-
-    private String jurusan;
     private int umur;
     private String gender;
     private String demografi;
@@ -28,9 +26,7 @@ public class Tes extends RealmObject {
     private int seringLewatMakan;
     private int skor;
     private String status;
-    private String jawabanDetail;
-    private int skorTidakDihargai, skorDiabaikan, skorTidakPenting, skorNyamanBicara, skorLewatMakan;
-
+    private String tanggal;
 
     public Tes(){}
 
@@ -39,10 +35,8 @@ public class Tes extends RealmObject {
                int merasaTidakPenting, String perasaan, int nyamanBicara,
                boolean jadiDiriSendiri, boolean dukunganKeluarga, boolean olahraga,
                boolean susahTidur, String jamTidur, String jamBangun,
-               boolean nafsuMakan, int seringLewatMakan, int skor, String jurusan, int skorDiabaikan,
-               int skorLewatMakan, int skorTidakDihargai, int skorTidakPenting, int skorNyamanBicara) {
+               boolean nafsuMakan, int seringLewatMakan, int skor, String status, String tanggal) {
         this.id = id;
-        this.jurusan = jurusan;
         this.umur = umur;
         this.gender = gender;
         this.demografi = demografi;
@@ -63,12 +57,7 @@ public class Tes extends RealmObject {
         this.seringLewatMakan = seringLewatMakan;
         this.skor = skor;
         this.status = status;
-        this.jawabanDetail = jawabanDetail;
-        this.skorLewatMakan = skorLewatMakan;
-        this.skorTidakDihargai = skorTidakDihargai;
-        this.skorTidakPenting = skorTidakPenting;
-        this.skorNyamanBicara = skorNyamanBicara;
-        this.skorDiabaikan = skorDiabaikan;
+        this.tanggal = tanggal;
     }
 
     public int getId() {
@@ -76,13 +65,6 @@ public class Tes extends RealmObject {
     }
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getJurusan() {
-        return jurusan;
-    }
-    public void setJurusan(String jurusan) {
-        this.jurusan = jurusan;
     }
 
     public int getUmur() {
@@ -225,51 +207,10 @@ public class Tes extends RealmObject {
         this.status = status;
     }
 
-    public String getJawabanDetail() {
-        return jawabanDetail;
+    public String getTanggal() {
+        return tanggal;
     }
-
-    public void setJawabanDetail(String jawabanDetail) {
-        this.jawabanDetail = jawabanDetail;
-    }
-
-    public int getSkorTidakDihargai() {
-        return skorTidakDihargai;
-    }
-
-    public void setSkorTidakDihargai(int skorTidakDihargai) {
-        this.skorTidakDihargai = skorTidakDihargai;
-    }
-
-    public int getSkorDiabaikan() {
-        return skorDiabaikan;
-    }
-
-    public void setSkorDiabaikan(int skorDiabaikan) {
-        this.skorDiabaikan = skorDiabaikan;
-    }
-
-    public int getSkorTidakPenting() {
-        return skorTidakPenting;
-    }
-
-    public void setSkorTidakPenting(int skorTidakPenting) {
-        this.skorTidakPenting = skorTidakPenting;
-    }
-
-    public int getSkorNyamanBicara() {
-        return skorNyamanBicara;
-    }
-
-    public void setSkorNyamanBicara(int skorNyamanBicara) {
-        this.skorNyamanBicara = skorNyamanBicara;
-    }
-
-    public int getSkorLewatMakan() {
-        return skorLewatMakan;
-    }
-
-    public void setSkorLewatMakan(int skorLewatMakan) {
-        this.skorLewatMakan = skorLewatMakan;
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 }

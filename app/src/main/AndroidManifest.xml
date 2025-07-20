@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aplikasi_psikolog"
         tools:targetApi="31">
-        <activity android:name=".ChatActivity" />
         <activity
-            android:name=".DetailRekapFragment"
+            android:name=".HasilTesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity1"

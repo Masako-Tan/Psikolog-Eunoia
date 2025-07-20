@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#E4F0FF"
+        android:background="@color/header"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +25,7 @@
                 android:layout_width="25dp"
                 android:layout_height="35dp"
                 app:srcCompat="@drawable/back"
+                android:tint="@color/white"
                 tools:layout_editor_absoluteX="6dp"
                 tools:layout_editor_absoluteY="8dp" />
 
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rekap"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="23dp"
                 android:layout_marginStart="8dp"
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="#95B6FBFF">
+            android:background="@color/bg">
 
             <!-- Profil Icha -->
             <LinearLayout
@@ -234,7 +235,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Lihat Detail"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/dark_blue"
                             />
                     </LinearLayout>
 
@@ -299,7 +300,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Lihat Detail"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/dark_blue"
                             />
                     </LinearLayout>
 
@@ -364,7 +365,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Lihat Detail"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/dark_blue"
                             />
                     </LinearLayout>
 
@@ -429,7 +430,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Lihat Detail"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/dark_blue"
                             />
                     </LinearLayout>
 
@@ -494,7 +495,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Lihat Detail"
-                            android:textColor="@color/blue"
+                            android:textColor="@color/dark_blue"
                             />
                     </LinearLayout>
 
