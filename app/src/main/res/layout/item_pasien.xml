@@ -10,6 +10,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/layout_rounded"
+        android:backgroundTint="@color/white"
         android:padding="12dp">
 
         <ImageView
@@ -29,7 +30,7 @@
             android:layout_marginStart="15dp"
             android:text="Icha Septina"
             android:textSize="14sp"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/imgPanah"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#95B6FBFF"
+    android:background="@color/bg"
     tools:context=".ui.beranda.BerandaFragment">
 
     <!--Header-->
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#E4F0FF">
+        android:background="@color/header">
 
         <!-- Logo & Judul -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Beranda"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="23dp"
                 android:layout_marginStart="8dp"
@@ -48,7 +48,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#3F000000"
+            android:background="#BDBDBD"
             android:paddingTop="7dp">
 
             <EditText
@@ -94,7 +94,8 @@
                     android:id="@+id/calendarView"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
-                    android:background="#B6FBFF" />
+                    android:background="@drawable/layout_rounded"
+                    android:backgroundTint="@color/white" />
             </LinearLayout>
 
             <!-- Tombol Tambah Reminder -->
@@ -107,7 +108,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="-45dp"
                 android:layout_marginBottom="4dp"
-                android:backgroundTint="@color/teal_700"
+                android:backgroundTint="@color/header"
                 android:textColor="@android:color/white" />
 
             <!-- Reminder -->
@@ -196,8 +197,10 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="16dp"
                 android:nestedScrollingEnabled="false"
-                android:background="#ffffff"
-                android:overScrollMode="never" />
+                android:background="@drawable/layout_rounded"
+                android:backgroundTint="@color/header"
+                android:overScrollMode="never"
+                android:padding="15dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

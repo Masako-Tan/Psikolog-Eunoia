@@ -74,41 +74,13 @@ public class BerandaFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_beranda, container, false);
 
+        // set default selectedDate ke hari ini
+        selectedDate = dateFormat.format(new java.util.Date());
+
         imgLogo = rootView.findViewById(R.id.imgLogo);
-//        imgIcha = rootView.findViewById(R.id.imgIcha);
-//        imgAsep = rootView.findViewById(R.id.imgAsep);
-//        imgSeny = rootView.findViewById(R.id.imgSeny);
-//        imgRea = rootView.findViewById(R.id.imgRea);
-//        imgRhoma = rootView.findViewById(R.id.imgRhoma);
-//        imgIrama = rootView.findViewById(R.id.imgIrama);
-
-//        imgPanah = rootView.findViewById(R.id.imgPanah);
-//        imgPanah1 = rootView.findViewById(R.id.imgPanah1);
-//        imgPanah2 = rootView.findViewById(R.id.imgPanah2);
-//        imgPanah3 = rootView.findViewById(R.id.imgPanah3);
-//        imgPanah4 = rootView.findViewById(R.id.imgPanah4);
-//        imgPanah5 = rootView.findViewById(R.id.imgPanah5);
-
         txvBeranda = rootView.findViewById(R.id.txvBeranda);
-//        txvRemind1 = rootView.findViewById(R.id.txvRemind1);
-//        txvRemind2 = rootView.findViewById(R.id.txvRemind2);
         txvGrafik = rootView.findViewById(R.id.txvGrafik);
         txvPasien = rootView.findViewById(R.id.txvPasien);
-//        txvIcha = rootView.findViewById(R.id.txvIcha);
-//        txvAsep = rootView.findViewById(R.id.txvAsep);
-//        txvSeny = rootView.findViewById(R.id.txvSeny);
-//        txvRea = rootView.findViewById(R.id.txvRea);
-//        txvRhoma = rootView.findViewById(R.id.txvRhoma);
-//        txvIrama = rootView.findViewById(R.id.txvIrama);
-
-//        chbIcha = rootView.findViewById(R.id.chbIcha);
-//        chbAsep = rootView.findViewById(R.id.chbAsep);
-//        chbSeny = rootView.findViewById(R.id.chbSeny);
-//        chbRea = rootView.findViewById(R.id.chbRea);
-//        chbKonsulseny = rootView.findViewById(R.id.chbKonsulseny);
-//        chbIrama = rootView.findViewById(R.id.chbIrama);
-//        chbRekaprea = rootView.findViewById(R.id.chbRekaprea);
-//        chbRhoma = rootView.findViewById(R.id.chbRhoma);
 
         edtCari = rootView.findViewById(R.id.edtCari);
         calendarView = rootView.findViewById(R.id.calendarView);
@@ -117,11 +89,6 @@ public class BerandaFragment extends Fragment {
         llyGrafik = rootView.findViewById(R.id.llyGrafik);
         llyReminder = rootView.findViewById(R.id.llyReminder);
         recyclerViewPasien = rootView.findViewById(R.id.recyclerViewPasien);
-
-        // Reminder
-        Realm.init(requireContext());
-        RealmConfiguration config = new RealmConfiguration.Builder().allowWritesOnUiThread(true).build();
-        Realm.setDefaultConfiguration(config);
 
         btnTambahReminder = rootView.findViewById(R.id.btnTambahReminder);
 
@@ -135,7 +102,7 @@ public class BerandaFragment extends Fragment {
 
             builder.setPositiveButton("Simpan", (dialog, which) -> {
                 String task = input.getText().toString().trim();
-                if (!task.isEmpty() && !selectedDate.isEmpty()) {
+                if (!task.isEmpty()) {
                     Realm realm = Realm.getDefaultInstance();
                     realm.executeTransaction(r -> {
                         Reminder reminder = r.createObject(Reminder.class, UUID.randomUUID().toString());
@@ -151,70 +118,74 @@ public class BerandaFragment extends Fragment {
             builder.show();
         });
 
-
-
-
-        // Search
         recyclerViewPasien.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 outRect.top = 8;
-                outRect.bottom = 16; // spasi bawah tiap item
+                outRect.bottom = 16;
             }
         });
 
         edtCari.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 pasienAdapter.filter(s.toString());
-
                 if (s.toString().isEmpty()) {
                     llyGrafik.setVisibility(View.VISIBLE);
                     txvPasien.setVisibility(View.VISIBLE);
                 } else {
-                    llyGrafik.setVisibility(View.GONE); // hide grafik saat search
-                    txvPasien.setVisibility(View.GONE); // sembunyikan judul pasien
+                    llyGrafik.setVisibility(View.GONE);
+                    txvPasien.setVisibility(View.GONE);
                 }
-
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
+            @Override public void afterTextChanged(Editable s) {}
         });
 
         setupGrafikStresPasien();
-
-
         keteranganWarna();
-        setupCalendarListener();
-        String today = dateFormat.format(new java.util.Date());
-        tampilkanReminder(today);
-
+        setupCalendarListener();      // ⬅️ sudah diatur supaya selectedDate update
+        tampilkanReminder(selectedDate); // ⬅️ tampilkan hari ini di awal
         setupPasienList();
         setupSearch();
 
-
-
         return rootView;
-
     }
 
     private void setupPasienList() {
         recyclerViewPasien.setLayoutManager(new LinearLayoutManager(getContext()));
-        pasienList = new ArrayList<>();
-        pasienList.add(new Pasien("Icha Septina", R.drawable.icha));
-        pasienList.add(new Pasien("Asep Yovara", R.drawable.asep));
-        pasienList.add(new Pasien("Seny Caroline", R.drawable.senyy));
-        pasienList.add(new Pasien("Rea Parulian", R.drawable.rea));
-        pasienList.add(new Pasien("Rhoma", R.drawable.rhoma));
-        pasienList.add(new Pasien("Irama", R.drawable.irama));
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Pasien> realmPasien = realm.where(Pasien.class).findAll();
 
-        pasienAdapter = new PasienAdapter(getContext(), pasienList, this);
+        if (realmPasien.isEmpty()) {
+            realm.executeTransaction(r -> {
+                tambahPasienDummy(r, "icha.septina@gmail.com", "Icha Septina", "Psikologi", 18, "Perempuan", R.drawable.icha);
+                tambahPasienDummy(r, "yovara.sepp@gmail.com", "Asep Yovara", "Teknik Informatika", 19, "Laki-laki", R.drawable.asep);
+                tambahPasienDummy(r, "seny.caroline@gmail.com", "Seny Caroline", "Ilmu Komunikasi", 20, "Perempuan", R.drawable.senyy);
+                tambahPasienDummy(r, "rea.parulian@gmail.com", "Rea Parulian", "Kedokteran", 22, "Perempuan", R.drawable.rea);
+                tambahPasienDummy(r, "rhoma@gmail.com", "Rhoma", "Hukum", 23, "Laki-laki", R.drawable.rhoma);
+                tambahPasienDummy(r, "irham089@gmail.com", "Irham", "Manajemen", 19, "Laki-laki", R.drawable.irama);
+                tambahPasienDummy(r, "teti.supratto@gmail.com", "Teti Supratto", "Akuntansi", 18, "Laki-laki", R.drawable.asep);
+                tambahPasienDummy(r, "susan.min@gmail.com", "Susan Min", "Farmasi", 21, "Perempuan", R.drawable.senyy);
+                tambahPasienDummy(r, "mahesa@gmail.com", "Mahesa", "Arsitektur", 22, "Perempuan", R.drawable.rea);
+                tambahPasienDummy(r, "sujan.pasmir@gmail.com", "Sujan Pasmir", "Teknik Mesin", 20, "Laki-laki", R.drawable.rhoma);
+            });
+            // Setelah isi dummy kalau kosong
+            realmPasien = realm.where(Pasien.class).findAll();
+        }
+        // set adapter pakai realmPasien, bukan pasienList
+        pasienAdapter = new PasienAdapter(getContext(), realmPasien, this);
         recyclerViewPasien.setAdapter(pasienAdapter);
     }
+
+    private void tambahPasienDummy(Realm r, String email, String nama, String jurusan, int umur, String jenisKelamin, int fotoResId) {
+        Pasien p = r.createObject(Pasien.class, email);
+        p.setNama(nama);
+        p.setJurusan(jurusan);
+        p.setUmur(umur);
+        p.setJenisKelamin(jenisKelamin);
+        p.setFotoResId(fotoResId);
+    }
+
 
     private void setupSearch() {
         edtCari.addTextChangedListener(new TextWatcher() {
@@ -245,12 +216,7 @@ public class BerandaFragment extends Fragment {
     private void tampilkanReminder(String dateKey) {
         llyReminder.removeAllViews();
 
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("app.realm")
-                .deleteRealmIfMigrationNeeded()
-                .allowWritesOnUiThread(true)
-                .build();
-        Realm realm = Realm.getInstance(config);
+        Realm realm = Realm.getDefaultInstance();
 
         RealmResults<Reminder> reminders = realm.where(Reminder.class)
                 .equalTo("date", dateKey)
@@ -351,11 +317,11 @@ public class BerandaFragment extends Fragment {
 
             //Kategori warnanya
             if (stres[i] >= 7.0f) {
-                colors.add(Color.RED); //Tinggi
+                colors.add(Color.parseColor("#FFD7D7")); //Tinggi
             } else if (stres[i] >= 4.0f) {
-                colors.add(Color.YELLOW); //Sedang
+                colors.add(Color.parseColor("#FFD98D")); //Sedang
             } else {
-                colors.add(Color.GREEN); //Rendah
+                colors.add(Color.parseColor("#CEEDC0")); //Rendah
             }
         }
 
