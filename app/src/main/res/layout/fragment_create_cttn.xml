@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E0F7FA"
+        android:background="@color/bg"
         android:orientation="vertical">
 
         <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#E4F0FF"
+            android:background="@color/header"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +30,7 @@
                     android:layout_width="25dp"
                     android:layout_height="35dp"
                     app:srcCompat="@drawable/back"
+                    app:tint="@color/white"
                     tools:layout_editor_absoluteX="6dp"
                     tools:layout_editor_absoluteY="8dp" />
 
@@ -47,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Catatan"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="23dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
@@ -82,15 +83,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtNama"
-                android:hint="Nama Mahasiswa"
+                android:id="@+id/spinnerNama"
                 android:padding="12dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="16dp"
-                android:textSize="14sp" />
+                android:layout_marginBottom="16dp" />
 
             <!-- Umur -->
             <TextView
@@ -110,7 +109,8 @@
                 android:padding="12dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="16dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:background="@drawable/border"/>
 
             <!-- Jenis Kelamin -->
             <TextView
@@ -163,7 +163,8 @@
                 android:textSize="14sp"
                 android:inputType="textMultiLine"
                 android:gravity="top"
-                android:hint="Tuliskan hasil observasi anda"/>
+                android:hint="Tuliskan hasil observasi anda"
+                android:background="@drawable/border"/>
 
             <!-- Tombol -->
             <LinearLayout
@@ -189,7 +190,7 @@
                     android:text="Tambah"
                     android:layout_marginStart="12dp"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/dark_blue"
                     android:stateListAnimator="@null" />
             </LinearLayout>
 

@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailRekapFragment">
+    tools:context=".ui.konsultasi.KonsultasiFragment">
 
+    <!-- HEADER -->
     <LinearLayout
-        android:id="@+id/headerDetailrekap"
+        android:id="@+id/headerRekap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -21,494 +21,67 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/imgKembali"
-                android:layout_width="25dp"
-                android:layout_height="35dp"
-                app:srcCompat="@drawable/back"
-                android:tint="@color/white"
-                tools:layout_editor_absoluteX="6dp"
-                tools:layout_editor_absoluteY="8dp" />
-
-            <ImageView
                 android:id="@+id/imgLogo"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:src="@drawable/eunoia"
+                app:srcCompat="@drawable/eunoia"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="40dp"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/txvBeranda"
+                android:id="@+id/txvRekap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rekap"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="23dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgLogo"
-                app:layout_constraintTop_toTopOf="@id/imgLogo" />
+                app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+                app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <!-- ScrollView berisi konten profil dst -->
-    <ScrollView
-        android:id="@+id/scrollableContent"
+    <!-- ISI -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/headerDetailrekap"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/bg"
+        app:layout_constraintTop_toBottomOf="@id/headerRekap"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
+        <!-- CHAT TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <!-- SEARCH BAR -->
+        <EditText
+            android:id="@+id/searchChat"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Search"
+            android:drawableStart="@drawable/searchh"
+            android:background="@drawable/border"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black" />
+
+        <!-- LIST PASIEN -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@color/bg">
-
-            <!-- Profil Icha -->
-            <LinearLayout
-                android:id="@+id/llyProfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/imgFotoicha"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/layout_circle"
-                    android:clipToOutline="true"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/icha" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txvIcha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Icha Septina"
-                        android:textColor="@color/black"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvUmuricha"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="19 Tahun"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/txvHubung"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="|"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/txvPerempuan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Perempuan"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tidak Mengalami Depresi"
-                        android:textColor="@android:color/black"
-                        android:background="@drawable/shape_rounded"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:layout_marginTop="6dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/viewGaris"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#B4B4B4"
-                android:layout_marginTop="11dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <ImageView
-                    android:id="@+id/imgChart"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/chart"
-                    />
-
-                <TextView
-                    android:id="@+id/txvHistori"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="11dp"
-                    android:layout_marginTop="6dp"
-                    android:text="Histori Tes"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="21dp"/>
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="13dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/txvPertama"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tes Pertama"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/txvTanggal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="28 Februari 2025"
-                        android:textColor="@color/black"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvSkor"
-                            android:layout_width="259dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Skor: 78"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/txvDetail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lihat Detail"
-                            android:textColor="@color/dark_blue"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatusdep"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Status: Depresi"
-                        android:textColor="@color/black"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="13dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/txvKedua"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tes Kedua"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/txvTanggal1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="15 Maret 2025"
-                        android:textColor="@color/black"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvSkor1"
-                            android:layout_width="259dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Skor: 87"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/txvDetail1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lihat Detail"
-                            android:textColor="@color/dark_blue"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatusdep1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Status: Depresi"
-                        android:textColor="@color/black"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="13dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/txvKetiga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tes Ketiga"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/txvTanggal2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="28 Mei 2025"
-                        android:textColor="@color/black"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvSkor2"
-                            android:layout_width="259dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Skor: 35"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/txvDetail2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lihat Detail"
-                            android:textColor="@color/dark_blue"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatusdep2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Status: Tidak Depresi"
-                        android:textColor="@color/black"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="13dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/txvKeempat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tes Keempat"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/txvTanggal3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="17 Juni 2025"
-                        android:textColor="@color/black"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvSkor3"
-                            android:layout_width="259dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Skor: 21"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/txvDetail3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lihat Detail"
-                            android:textColor="@color/dark_blue"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatusdep3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Status: Tidak Depresi"
-                        android:textColor="@color/black"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginTop="13dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/txvKelima"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tes Kelima"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/txvTanggal4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="11 Juli 2025"
-                        android:textColor="@color/black"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txvSkor4"
-                            android:layout_width="259dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Skor: 11"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/txvDetail4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Lihat Detail"
-                            android:textColor="@color/dark_blue"
-                            />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txvStatusdep4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Status: Tidak Depresi"
-                        android:textColor="@color/black"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-    </ScrollView>
+            android:backgroundTint="@color/header"
+            android:background="@drawable/konsul_border"
+            android:padding="20dp"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

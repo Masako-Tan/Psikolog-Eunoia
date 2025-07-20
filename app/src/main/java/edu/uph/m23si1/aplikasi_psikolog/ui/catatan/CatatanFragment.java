@@ -36,92 +36,75 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 
-public class CatatanFragment extends Fragment implements CatatanAdapter.OnCatatanClickListener {
-    Button btnEdit, btnDelete;
-    ImageView imgAdd;
-    Realm realm;
-    RecyclerView rvCatatan;
-    CatatanAdapter adapter;
+public class CatatanFragment extends Fragment {
 
+    RecyclerView rvCatatan;
+    ImageView imgAdd;
+    CatatanAdapter adapter;
+    Realm realm;
+    RealmResults<Catatan> catatanList;
+
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout first
-        View view = inflater.inflate(R.layout.fragment_catatan, container, false);
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_catatan, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize Realm
-        Realm.init(requireContext());
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("app.realm")
-                .deleteRealmIfMigrationNeeded()
-                .allowWritesOnUiThread(true)
-                .build();
-        realm = Realm.getInstance(config);
-
-        // Initialize views
-        imgAdd = view.findViewById(R.id.imgAdd);
         rvCatatan = view.findViewById(R.id.rvCatatan);
+        imgAdd = view.findViewById(R.id.imgAdd);
 
-        // MUST SET LAYOUT MANAGER BEFORE SETTING ADAPTER
-        rvCatatan.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Init Realm
+        Realm.init(requireContext());
+        realm = Realm.getDefaultInstance();
 
-        // Initialize adapter with empty list first
-        adapter = new CatatanAdapter(new ArrayList<>(), this);
-        rvCatatan.setAdapter(adapter);
+        // Ambil data Catatan
+        catatanList = realm.where(Catatan.class).findAll();
 
-        imgAdd.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.nav_host_fragment_activity_main1, new CreateCttnFragment())
-                    .addToBackStack(null)
-                    .commit();
+        // Pasang adapter
+        adapter = new CatatanAdapter(catatanList, new CatatanAdapter.OnCatatanClickListener() {
+            @Override
+            public void onEditClick(String catatanId) {
+                // buka fragment edit
+                FragmentTransaction ft = requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                ft.replace(R.id.main, CreateCttnFragment.newInstance(catatanId));
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+
+            @Override
+            public void onDeleteClick(Catatan catatan) {
+                realm.executeTransaction(r -> catatan.deleteFromRealm());
+            }
         });
 
-        loadData();
-    }
-
-    private void loadData() {
-        RealmResults<Catatan> daftarCatatan = realm.where(Catatan.class).findAll();
-        // Update adapter with new data
-        adapter = new CatatanAdapter(daftarCatatan, this);
+        rvCatatan.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCatatan.setAdapter(adapter);
+
+        // Listen ke perubahan Realm
+        catatanList.addChangeListener(results -> adapter.notifyDataSetChanged());
+
+        // Tambah data
+        imgAdd.setOnClickListener(v -> {
+            FragmentTransaction ft = requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            ft.replace(R.id.main, CreateCttnFragment.newInstance(null));
+            ft.addToBackStack(null);
+            ft.commit();
+        });
+
+
     }
 
     @Override
-    public void onEditClick(String catatanId) {
-        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment_activity_main1, CreateCttnFragment.newInstance(catatanId))
-                .addToBackStack(null)
-                .commit();
-    }
-
-    @Override
-    public void onDeleteClick(Catatan catatan) {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Konfirmasi")
-                .setMessage("Yakin ingin menghapus catatan ini?")
-                .setPositiveButton("Ya", (dialog, which) -> {
-                    realm.executeTransaction(r -> {
-                        Catatan target = r.where(Catatan.class).equalTo("id", catatan.getId()).findFirst();
-                        if (target != null) {
-                            target.deleteFromRealm();
-                            Toast.makeText(getContext(), "Data dihapus", Toast.LENGTH_SHORT).show();
-                            loadData();
-                        }
-                    });
-                })
-                .setNegativeButton("Batal", null)
-                .show();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (realm != null) {
             realm.close();
         }

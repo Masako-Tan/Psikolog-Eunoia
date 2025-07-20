@@ -77,9 +77,9 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
             txvIsiObs.setText(catatan.getObservasi());
 
             // Default values
-            txvTanggal.setText("Tes Terakhir: -");
-            txvSkor.setText("Skor Terakhir: -");
-            txvStatus.setText("Status: -");
+            txvTanggal.setText("Tes Terakhir: 11 Juli 2025");
+            txvSkor.setText("Skor Terakhir: 15");
+            txvStatus.setText("Status: Tidak Depresi");
 
             // [+] SET CLICK LISTENERS
             btnEdit.setOnClickListener(v -> listener.onEditClick(catatan.getId()));
