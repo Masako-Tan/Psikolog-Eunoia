@@ -1,25 +1,24 @@
 package edu.uph.m23si1.aplikasi_psikolog;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uph.m23si1.aplikasi_psikolog.model.Pasien;
 import edu.uph.m23si1.aplikasi_psikolog.model.Tes;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -30,19 +29,19 @@ public class ChatActivity extends AppCompatActivity {
     LinearLayout chatContainer, llySend, llyBack, llyChatHasilTes, llyBoxHasil;
     EditText edtChat;
     ScrollView chatScroll;
-    TextView txvNamaPsi, txvChatPembuka, txvSkorStatus;
+    TextView txvNamaPsi, txvChatPembuka, txvSkorStatus, txvDetail;
     String namaPasien;
-    String nama;
+    String nama = "Icha Septina";
     SharedPreferences prefs;
     String prefsKey;
     Realm realm;
-
+    ImageView imgFotoPasien;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // WAJIB: Inisialisasi Realm + konfigurasi agar tidak error migrasi
+        // Realm config
         Realm.init(getApplicationContext());
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
@@ -50,8 +49,9 @@ public class ChatActivity extends AppCompatActivity {
         Realm.setDefaultConfiguration(config);
 
         setContentView(R.layout.activity_chat);
+        realm = Realm.getDefaultInstance();
 
-        // Inisialisasi View
+        // Bind view
         txvNamaPsi = findViewById(R.id.txvNamaPsi);
         chatContainer = findViewById(R.id.chatContainer);
         edtChat = findViewById(R.id.edtChat);
@@ -62,27 +62,43 @@ public class ChatActivity extends AppCompatActivity {
         llyChatHasilTes = findViewById(R.id.llyChatHasilTes);
         llyBoxHasil = findViewById(R.id.llyBoxHasil);
         txvSkorStatus = findViewById(R.id.txvSkorStatus);
+        txvDetail = findViewById(R.id.txvDetail);
 
-        // Ambil data dari intent & shared preferences
-        namaPasien = getIntent().getStringExtra("namaPasien"); // Nama pasien dikirim dari adapter
-        nama = "Icha Septina"; // Kamu sebagai pengirim
+        // Dapatkan namaPasien dari intent
+        namaPasien = getIntent().getStringExtra("namaPasien");
+        Pasien pasien = realm.where(Pasien.class)
+                .equalTo("nama", namaPasien)
+                .findFirst();
 
-        // Dapatkan instance Realm
-        realm = Realm.getDefaultInstance();
+        if (pasien != null) {
+            // Set nama di header
+            txvNamaPsi.setText(pasien.getNama());
 
-        // Ambil hasil tes terbaru
-        Tes hasilTerakhir = realm.where(Tes.class).sort("id", Sort.DESCENDING).findFirst();
+            // Set foto (pastikan `getFotoResId()` atau `getFotoPath()` sesuai model kamu)
+            imgFotoPasien = findViewById(R.id.imgFotoPasien);
+            imgFotoPasien.setImageResource(pasien.getFotoResId());
+        }
+        if (namaPasien == null) namaPasien = "Pasien"; // default fallback
 
-        llyChatHasilTes.setVisibility(View.VISIBLE); // 👉 Paksa tampil dulu biar kamu bisa lihat
-        if (hasilTerakhir == null) {
+        // Ambil hasil tes id = 5
+        Tes hasilTes5 = realm.where(Tes.class).equalTo("id", 5).findFirst();
+        llyChatHasilTes.setVisibility(View.VISIBLE);
+        if (hasilTes5 == null) {
             txvChatPembuka.setText("Hi Doctor, I just saw my result...");
             txvSkorStatus.setText("Belum ada skor");
             llyBoxHasil.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DDDDDD")));
         } else {
             txvChatPembuka.setText("Halo dok, saya baru saja melihat hasil tes saya...");
-            String teks = "Skor Pasien : " + hasilTerakhir.getSkor() +
-                    "\nStatus: " + hasilTerakhir.getStatus();
+            String teks = "Skor Pasien : " + hasilTes5.getSkor() +
+                    "\nStatus: " + hasilTes5.getStatus();
             txvSkorStatus.setText(teks);
+
+            // Klik lihat lebih lanjut
+            txvDetail.setOnClickListener(v -> {
+                Intent intent = new Intent(ChatActivity.this, HasilTesActivity.class);
+                intent.putExtra("idTes", 5); // langsung id ke-5
+                startActivity(intent);
+            });
         }
 
         prefsKey = "chat_" + namaPasien + "_" + nama;
@@ -93,7 +109,7 @@ public class ChatActivity extends AppCompatActivity {
         // Tombol kembali
         llyBack.setOnClickListener(v -> finish());
 
-        // Tombol kirim
+        // Kirim pesan
         llySend.setOnClickListener(v -> {
             String pesan = edtChat.getText().toString().trim();
             if (!pesan.isEmpty()) {
@@ -138,7 +154,6 @@ public class ChatActivity extends AppCompatActivity {
             obj.put("sender", sender);
             obj.put("message", pesan);
             arr.put(obj);
-
             prefs.edit().putString(prefsKey, arr.toString()).apply();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -149,13 +164,14 @@ public class ChatActivity extends AppCompatActivity {
         TextView pesanView = new TextView(this);
         pesanView.setText(teks);
         pesanView.setTextColor(getResources().getColor(R.color.white));
-        pesanView.setBackgroundResource(R.drawable.bubble);
+        pesanView.setBackgroundResource(R.drawable.bubble_psi);
         pesanView.setPadding(25, 18, 25, 18);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 10, 0, 10);
-        if (sender.equals(namaPasien)) {
+
+        if (sender != null && sender.equals(namaPasien)) {
             params.gravity = android.view.Gravity.END;
         } else {
             params.gravity = android.view.Gravity.START;
@@ -167,5 +183,13 @@ public class ChatActivity extends AppCompatActivity {
 
     private void scrollKeBawah() {
         chatScroll.post(() -> chatScroll.fullScroll(View.FOCUS_DOWN));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (realm != null && !realm.isClosed()) {
+            realm.close();
+        }
     }
 }
