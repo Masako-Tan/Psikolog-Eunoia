@@ -6,4 +6,6 @@ Nama anggota kelompok:
 - Jaelynn Khonrad (03081230048)
 - Masako Tanoto (03081230053)
 - Natasha Angelie (03081230003)
+
+
 Link Youtube: https://youtube.com/shorts/dZpI-B1oLIU?si=cJBqXxO7hVtw6ze1
